@@ -1,0 +1,171 @@
+<!DOCTYPE html5>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión - LuogodiPrenotazione</title>
+  <link rel="icon" href="https://i.ibb.co/92km975/LOGO.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; 
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url(https://i.ibb.co/sCPGJC2/fondologin.png);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat; 
+    }
+
+    .login-form {
+      width: 90%;
+      max-width: 350px;
+      margin: 0 auto;
+      background-image: url('https://img.freepik.com/fotos-premium/bandera-italiana_469558-2021.jpg');
+      background-repeat: no-repeat;
+      background-size: 630px 1000px;
+      background-position: center;
+      padding: 20px;
+      border-radius: 50px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .login-form h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .login-form img {
+      display: block;
+      margin: 0 auto 20px;
+      max-width: 200px;
+    }
+
+    .login-form input[type="text"],
+    .login-form input[type="password"] {
+      width: calc(100% - 20px); 
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 2px solid #780000;
+      border-radius: 20px;
+      font-size: 16px;
+    }
+
+    .login-form button[type="button"] {
+      width: calc(100% - 20px); 
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: 2px solid #780000;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .login-form button[type="submit"] {
+      width: calc(100% - 20px); 
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: 2px solid #780000;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .login-form button[type="button"]:hover {
+      background-color: #3e8e41;
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center; 
+      margin-bottom: 15px;
+    }
+
+    .input-group i {
+      margin-right: 10px;
+      font-size: 20px;
+      margin-top: -15px;
+    }
+
+    @media (max-width: 768px) {
+      .login-form {
+        padding: 15px;
+        max-width: 90%;
+        background-size: cover;
+      }
+
+      .login-form h2 {
+        font-size: 20px;
+      }
+
+      .login-form input[type="text"],
+      .login-form input[type="password"] {
+        font-size: 14px;
+        width: calc(100% - 20px);
+      }
+
+      .login-form button[type="button"] {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-form {
+        padding: 10px;
+        max-width: 95%;
+        background-size: 630px 1000px;
+      }
+
+      .login-form h2 {
+        font-size: 18px;
+      }
+
+      .login-form input[type="text"],
+      .login-form input[type="password"] {
+        font-size: 12px;
+        width: calc(100% - 20px);
+      }
+
+      .login-form button[type="submit"] {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-form">
+    <h2>Inicia Sesión</h2>
+    <img src="https://i.ibb.co/92km975/LOGO.png" alt="Logo Luna di Cagna">
+    <form action="{% url 'Login' %}" method="POST">
+      {% csrf_token %}
+      <div class="input-group">
+        <i class="fa-solid fa-user"></i>
+        <input type="text" id="username" name="username" placeholder="Nombre de usuario" required>
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="password" name="password" placeholder="Contraseña" required>
+      </div>
+      {% if error %}
+        <p style="color: red; font-weight: bold;">{{ error }}</p>
+        {% endif %}
+      <button type="submit">Iniciar Sesión</button>
+      <a href="{% url 'Registro' %}" class="button-link">
+        <button type="button">Crea tu Cuenta</button>
+      </a>
+    </form>
+  </div>
+</body>
+</html>

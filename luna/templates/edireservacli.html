@@ -1,0 +1,264 @@
+<!DOCTYPE html5>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://i.ibb.co/92km975/LOGO.png">
+  <title>Reserva - LuogodiPrenotazione</title>
+  <style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url(https://i.ibb.co/sCPGJC2/fondologin.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+  }
+
+  form {
+    position: relative;
+    width: 90%;
+    height: 80%;
+    max-width: 600px;
+    min-height: 400px;
+    background-image: url('https://img.freepik.com/vector-gratis/ilustracion-bandera-italia_53876-27098.jpg');
+    background-repeat: no-repeat;
+    background-size: 600px 1000px ;
+    padding: 50px;
+    border-radius: 40px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    box-sizing: border-box;
+    overflow: auto;
+  }
+  
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+  
+    form input[type="text"],
+    form input[type="tel"],
+    form input[type="email"],
+    form input[type="date"],
+    form input[type="time"],
+    form input[type="number"],
+    form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+  
+    form button[type="submit"],
+    form button[type="button"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  
+    form button[type="submit"]:hover,
+    form button[type="button"]:hover {
+      background-color: #45a049;
+      border: 2px solid red;
+    }
+  
+    form textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    .number-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    }
+
+    .number-input button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 4px;
+    margin-top: -12px;
+    }
+
+    .hour-selector button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .hour-selector button.selected {
+    background-color: green;
+    border: 2px solid red; /* Color cuando está seleccionado */
+    color: white; /* Color del texto cuando está seleccionado */
+  }
+
+    .number-input input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 18px;
+    margin: 0 5px;
+    }
+  
+    @media (max-width: 768px) {
+      form {
+        padding: 15px;
+        background-size: 510px 12200px;
+      }
+  
+      form input[type="text"],
+      form input[type="tel"],
+      form input[type="email"],
+      form input[type="date"],
+      form input[type="time"],
+      form input[type="number"],
+      form textarea {
+        font-size: 0.9rem; /* Tamaño de fuente un poco más pequeño */
+      }
+  
+      form button {
+        font-size: 0.9rem;
+        padding: 12px 15px;
+      }
+    }
+  
+    @media (max-width: 480px) {
+      form {
+        padding: 10px;
+        background-size: 360px 1000px;
+      }
+  
+      form input[type="text"],
+      form input[type="tel"],
+      form input[type="email"],
+      form input[type="date"],
+      form input[type="time"],
+      form input[type="number"],
+      form textarea {
+        font-size: 0.8rem; /* Tamaño de fuente reducido */
+      }
+  
+      form button {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+  
+
+</head>
+<body>
+  <form action="" method="post">
+    {% csrf_token %}
+    <h2>Edita la Reserva</h2>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" value="{{ reserva.cliente.username }}" required>
+
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono" name="telefono" value="{{ reserva.telefono_cliente }}" required>
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" name="fecha" value="{{ reserva.fecha }}" required>
+
+    <label for="hora">Hora:</label>
+    <div class="hour-selector">
+        <button type="button" onclick="selectHour('19', this)" class="{% if reserva.hora|time:'H' == '19' %}selected{% endif %}">7 PM</button>
+        <button type="button" onclick="selectHour('20', this)" class="{% if reserva.hora|time:'H' == '20' %}selected{% endif %}">8 PM</button>
+        <button type="button" onclick="selectHour('21', this)" class="{% if reserva.hora|time:'H' == '21' %}selected{% endif %}">9 PM</button>
+        <button type="button" onclick="selectHour('22', this)" class="{% if reserva.hora|time:'H' == '22' %}selected{% endif %}">10 PM</button>
+        <button type="button" onclick="selectHour('23', this)" class="{% if reserva.hora|time:'H' == '23' %}selected{% endif %}">11 PM</button>
+        <input type="hidden" id="hora" name="hora" value="{{ reserva.hora|time:'H' }}">
+    </div><br>
+    
+    <label for="personas">Número de Personas:</label>
+    <div class="number-input">
+      <button type="button" onclick="decrement()">-</button>
+      <input type="number" id="personas" name="personas" value="{{ reserva.numero_personas }}" min="1">
+      <button type="button" onclick="increment()">+</button>
+    </div>
+
+    <button type="submit">Modificar</button>
+    <a href="{% url 'Reserva' %}" class="button-link">
+      <button type="button">Volver</button>
+    </a>
+  </form>
+
+  <!-- Scripts para envio de formulario a la base de datos -->
+  <script>
+    // Aquí no debería ir el código del servidor
+  </script>
+
+  <!-- Scripts para funcionalidad de invitados -->
+  <script>
+  function increment() {
+    const input = document.getElementById('personas');
+    if (parseInt(input.value) < 10) { // Verificar que el valor sea menor que 10
+      input.value = parseInt(input.value) + 1;
+    }
+  }
+
+  function decrement() {
+    const input = document.getElementById('personas');
+    if (input.value > 1) { // Permitir disminuir solo si es mayor que 1
+      input.value = parseInt(input.value) - 1;
+    }
+  }
+  </script>
+
+  <!-- Scripts para la selección de hora -->
+  <script>
+    function increment() {
+      const input = document.getElementById('personas');
+      if (parseInt(input.value) < 10) {
+        input.value = parseInt(input.value) + 1;
+      }
+    }
+  
+    function decrement() {
+      const input = document.getElementById('personas');
+      if (input.value > 1) {
+        input.value = parseInt(input.value) - 1;
+      }
+    }
+  
+    function selectHour(hour, button) {
+      // Elimina la clase 'selected' de todos los botones
+      const buttons = document.querySelectorAll('.hour-selector button');
+      buttons.forEach(btn => {
+          btn.classList.remove('selected');
+      });
+      
+      // Agrega la clase 'selected' al botón que fue clicado
+      button.classList.add('selected');
+      
+      // Establece el valor de la hora en el input oculto
+      document.getElementById('hora').value = hour;
+    }
+  </script>
+</body>
+</html>

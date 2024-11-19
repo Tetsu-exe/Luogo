@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="https://i.ibb.co/92km975/LOGO.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú - LuogodiPrenotazione</title>
+
+    <link rel="stylesheet" href="css/stylo.css">
+    <!--iconos de fontawesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- box icons -->
+    <link href='styles2.css' rel='stylesheet' >
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+
+body {
+    margin-left: 80px;
+    margin-top: 55px;
+    transition: margin-left 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.card img{
+    width: 50px;
+    height: auto;
+}
+
+/*Estilos para el scroll*/
+body::-webkit-scrollbar {
+    width: 10px;
+    /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+    background: #000;
+    /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #fff;
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+    border: 3px solid black;
+    /* creates padding around scroll thumb */
+}
+
+main {
+    padding: 20px;
+}
+
+header {
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    gap: 15%;
+    z-index: 200;
+}
+
+.icon__menu {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(10px);
+}
+
+.icon__menu i {
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    color: #000;
+}
+
+.menu__side {
+    width: 150px;
+    height: 100%;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #ff0000;
+    font-size: 18px;
+    z-index: 300;
+    overflow: hidden;
+    overflow-y: scroll;
+    border-right:  10px solid #000;
+    transition: all 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+/*Modal trigger*/
+
+.modalDialog {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.625);
+    z-index: 99999;
+    opacity: 0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+
+.modalDialog:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modalDialog>div {
+    width: 700px;
+    position: relative;
+    margin: 2% auto;
+    padding: 5px 20px 13px 20px;
+    border-radius: 10px;
+    background: #fff;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+}
+
+.close {
+    background: #543702;
+    color: #fff;
+    line-height: 25px;
+    position: absolute;
+    right: -12px;
+    text-align: center;
+    top: -10px;
+    width: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    -moz-box-shadow: 1px 1px 3px #000;
+    -webkit-box-shadow: 1px 1px 3px #000;
+    box-shadow: 1px 1px 3px #000;
+}
+
+.close:hover {
+    background: #000;
+}
+
+.modalDialog .limpiador {
+    padding: 10px;
+    margin: 10px;
+    margin-bottom: 5px;
+    margin: 0 10px;
+}
+
+.modalDialog .limpiar {
+    display: flex;
+    justify-content: center;
+    color: #000;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 50px;
+    transition: all 400ms ease;
+    margin-bottom: 5px;
+    margin: 0 10px;
+}
+
+.modalDialog .limpiar:hover {
+    display: flex;
+    justify-content: center;
+    background: #000;
+    color: #fff;
+}
+
+/*mostrar ordenes en modal*/
+.mostrar {
+    height: 450px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+/*Estilos para el scroll del modal*/
+.mostrar::-webkit-scrollbar {
+    width: 10px;
+}
+
+.mostrar::-webkit-scrollbar-track {
+    background: #33383b;
+}
+
+.mostrar::-webkit-scrollbar-thumb {
+    background-color: #000;
+    border-radius: 20px;
+    border: 3px solid black;
+}
+
+.mostrar .item img {
+    max-width: 150px;
+    border-radius: 5px;
+}
+
+.mostrar .item {
+    display: flex;
+    align-items: center;
+    border-bottom: solid 2px #33383b;
+}
+
+.mostrar .item .item-content {
+    margin: 0 15px;
+    width: 390px;
+}
+
+.mostrar .item .item-content h5 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 400;
+    font-family: system-ui;
+    color: #000;
+}
+
+.mostrar .item .item-content p {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: system-ui;
+}
+
+.mostrar .item .item-content h6 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: system-ui;
+}
+
+.mostrar .item span {
+    padding: 0px 5px;
+    border-radius: 3%;
+    color: #ff0000;
+    font-family: system-ui;
+    cursor: pointer;
+}
+
+.mostrar .item span:hover {
+    background-color: rgb(225, 65, 65);
+    padding: 0px 5px;
+    border-radius: 20%;
+    color: #fff;
+    font-family: system-ui;
+    cursor: pointer;
+}
+
+.mostrar h3 {
+    margin-bottom: 0;
+}
+
+.mostrar .item .item-content h5.order-price {
+    font-weight: 700;
+}
+
+/*Fin Modal Trigger*/
+#Inicio{
+    background-color: #5c5c5c;
+}
+/*Estilos para el carrousel*/
+
+.slide-btn {
+    display: none;
+}
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+.slide {
+    float: left;
+    height: 100%;
+    width: 0;
+    transition: width .3s linear;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.slide > * {
+    transition: transform .15s linear;
+    transform: scale(0);
+}
+.labels {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+.labels label {
+    display: inline-block;
+    background-color: transparent;
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    margin: .5vmin 2vmin;
+    border: 3px solid #000;
+}
+.carousel .one,
+.carousel .two,
+.carousel .three,
+.carousel .four,
+.carousel .five {
+    background-position: center center;
+    background-size:  cover;
+}
+.carousel .one {
+    background-image: url(https:i.ibb.co/wJQ048y/monster-burguer.png);
+}
+.carousel .two {
+    background-image: url(https://gobuff.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Faboutus.a3233c23.png&w=1920&q=75);
+}
+.carousel .three {
+    background-image: url(https://i.ibb.co/QJc9jH9/96644.jpg);
+}
+.carousel .four {
+    background-image: url(https://www.guiarepsol.com/content/dam/repsol-guia/contenidos-imagenes/comer/top-de-gastronomia/los-restaurantes-mas-antiguos-de-espana/gr-cms-media-featured_images-none-759f762b-7965-41cd-a979-da49509e205d-1.jpg);
+}
+.carousel .five {
+    background-image: url(https://blog.mesa247.pe/wp-content/uploads/2022/04/restaurantes.jpeg);
+}
+#slide-btn-1:checked ~ .one,
+#slide-btn-2:checked ~ .two,
+#slide-btn-3:checked ~ .three,
+#slide-btn-4:checked ~ .four,
+#slide-btn-5:checked ~ .five {
+    width: 100%;
+}
+#slide-btn-1:checked ~ .one > *,
+#slide-btn-2:checked ~ .two > *,
+#slide-btn-3:checked ~ .three > *,
+#slide-btn-4:checked ~ .four > *,
+#slide-btn-5:checked ~ .five > * {
+    transform: scale(1);
+}
+#slide-btn-1:checked ~ .labels label[for="slide-btn-1"],
+#slide-btn-2:checked ~ .labels label[for="slide-btn-2"],
+#slide-btn-3:checked ~ .labels label[for="slide-btn-3"],
+#slide-btn-4:checked ~ .labels label[for="slide-btn-4"],
+#slide-btn-5:checked ~ .labels label[for="slide-btn-5"] {
+    background-color: #000;
+}
+/*Fin del estilos del carrousel*/
+
+/*Ocultar scroll para chrome, safari y opera*/
+.menu__side::-webkit-scrollbar {
+    display: none;
+}
+
+/*Ocultar scroll para IE, Edge y Firefox*/
+.menu__side {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.name__page {
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.name__page i {
+    width: 20px;
+    margin-right: 20px;
+}
+
+.options__menu {
+    padding: 20px 30px;
+    position: absolute;
+    top: 80px;
+}
+
+.options__menu a {
+    color: #000;
+    cursor: default;
+    display: block;
+    position: relative;
+    transition: color 300ms;
+}
+
+.options__menu a:hover {
+    color: #ff0000;
+}
+
+.options__menu .option {
+    padding: 20px 0px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.options__menu .option i {
+    width: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.options__menu .option h4 {
+    font-weight: 300;
+    cursor: pointer;
+}
+
+a.selected,
+a.selected:hover {
+    color: #ffffff;
+    transition: 0.5s;
+}
+
+a .selected::before {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background: #000;
+    left: 0;
+    top: 0;
+    transition: 0.5s;
+}
+
+a .selected:hover::before {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background: #000;
+    left: 0;
+    top: 0;
+    transition: 0.5s;
+}
+
+/*boton de ordenes o pedidos*/
+a.campana {
+    position: absolute;
+    top: 14px;
+    cursor: pointer;
+}
+
+
+
+/*Clases para usar en JavaScript*/
+
+.body_move {
+    margin-left: 250px;
+}
+
+.menu__side_move {
+    width: 250px;
+}
+
+
+@media screen and (max-width: 760px) {
+    .body_move {
+        margin-left: 0px;
+    }
+
+    .menu__side_move {
+        width: 80px;
+        left: -80px;
+    }
+}
+
+/*Main contenido*/
+
+/*seccion de bienvenida*/
+.btn-sect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-sect a {
+    display: inline-block;
+    padding: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 6px;
+    transition: all 400ms ease;
+    margin-bottom: 5px;
+    margin: 0 10px;
+}
+
+.btn-sect a:hover {
+    background: #000;
+    color: #fff;
+}
+
+/*Main contenido*/
+
+/*  TERMINA seccion de bienvenida*/
+
+/*Lineas de decoración*/
+.line {
+    width: 100%;
+    height: 5.5px;
+    background: #000;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+.line2 {
+    width: 100%;
+    height: 1px;
+    background: #000;
+    margin: 10px 0;
+}
+
+/*Termina Lineas de decoración*/
+
+/*Inicia Cards*/
+/* Contenedor principal de las tarjetas */
+.container-card {
+    display: flex; /* Flexbox para alinear las tarjetas en fila horizontal */
+    flex-wrap: wrap; /* Permite que las tarjetas se ajusten a la siguiente fila si no caben */
+    justify-content: space-between; /* Espacio entre las tarjetas */
+    margin: 20px auto;
+    width: 100%; /* Asegura que el contenedor use el 100% del ancho disponible */
+    max-width: 1200px; /* Controla el ancho máximo del contenedor */
+    box-sizing: border-box; /* Incluye el padding y margin en el cálculo del tamaño */
+}
+
+/* Estilos de la tarjeta */
+.card {
+    width: calc(25% - 20px); /* Asegura que cada tarjeta ocupa el 25% del ancho con margen */
+    margin: 10px; /* Espacio entre tarjetas */
+    border-radius: 30px;
+    background: #fff;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+    transition: all 400ms ease-out;
+    cursor: default;
+    box-sizing: border-box; /* Mantiene el tamaño del box consistente */
+}
+
+/* Efecto hover */
+.card:hover {
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3%);
+}
+
+/* Estilo de la imagen dentro de cada tarjeta */
+.card img {
+    width: 100%; /* La imagen ocupa el 100% del ancho de la tarjeta */
+    height: 210px; /* Mantiene la altura fija */
+    border-radius: 30px 30px 5px 5px;
+    object-fit: cover; /* Asegura que la imagen se mantenga bien proporcionada dentro de su contenedor */
+}
+
+/* Alinear el precio del plato */
+.precio-plato-carta {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    margin-top: auto;
+}
+
+/* Texto del precio */
+span, strong {
+    color: #000;
+}
+
+/* Contenido dentro de la tarjeta */
+.card .contenido-card {
+    padding: 15px;
+    text-align: center;
+}
+
+/* Botón de ordenar */
+.card .contenido-card a {
+    display: inline-block;
+    padding: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 4px;
+    transition: all 400ms ease;
+    margin-bottom: 5px;
+}
+
+.card .contenido-card a:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* Responsividad: Pantallas medianas */
+@media only screen and (max-width: 992px) {
+    .card {
+        width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas medianas */
+    }
+}
+
+/* Responsividad: Pantallas pequeñas */
+@media only screen and (max-width: 768px) {
+    .card {
+        width: 100%; /* Una tarjeta por fila en pantallas pequeñas */
+    }
+}
+
+/*contenedor de logos*/
+.contenedor_logos {
+    position: relative;
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    gap: 4rem;
+}
+
+
+.contenedor_logos i {
+    position: relative;
+    margin: 0 15px;
+    text-decoration: none;
+    color: #d3d3d3;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    font-size: 3.1rem;
+}
+.contenedor_logos h1{
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/*Fin contenedor de logos*/
+
+#sobre_nosotros{
+    padding: 50px 0;
+}
+
+#sobre_nosotros{
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.gallery-sobre{
+    max-width: 800px;
+    margin: 50px auto;
+}
+.gallery-sobre .gallery-cell .item{
+    display: flex;
+    align-items: center;
+    margin: 0 80px;
+}
+
+.gallery-sobre .gallery-cell img{
+    display: block;
+    width: 150px;
+    border-radius: 90%;
+    border: 2px solid #fff;
+    margin-right: 30px;
+}
+
+.gallery-sobre .gallery-cell h3{
+    margin-bottom: 7px;
+}
+
+.gallery-sobre .gallery-cell p{
+    color: #CD212A;
+    font-style: italic;
+    font-size: 10px;
+}
+
+#sobre_nosotros button{
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    font-size: 20px;
+    border: none;
+    background-color: #CD212A;
+    color: #fff;
+    padding: 7px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+/*Contactos*/
+
+#contacto{
+    background-color: #009246;
+    padding: 50px 0;
+    font-size: 12px;
+}
+
+#contacto .fila{
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+}
+
+#contacto a{
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    margin-bottom: 3px;
+}
+
+#contacto a:hover{
+    text-decoration: underline;
+}
+
+#contacto h3{
+    margin-bottom: 12px;
+}
+#contacto .media{
+    display: flex;
+    align-items: center;
+}
+
+#contacto .media i{
+    display: block;
+    margin-right: 10px;
+}
+
+#contacto input{
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 30px;
+}
+
+#contacto .Enviar{
+    background-color: #000;
+    color: #fff;
+    margin-top: 15px;
+    cursor: pointer;
+}
+    </style>
+</head>
+
+
+<body id="body">
+    <!--cabecera de la página-->
+    <header>
+        <div class="icon__menu">
+            <i class="fas fa-bars" id="btn_open"></i>
+        </div>
+        
+    </header>
+    <!--menú lateral-->
+    <div class="menu__side" id="menu_side">
+
+        <div class="name__page">
+            <a href="#" class="brand">
+                <img src="https://i.ibb.co/92km975/LOGO.png" width="90px" height="90px">
+            </a>
+        </div>
+
+        <div class="options__menu">
+
+            <a href="{% url 'Inicio' %}">
+                <div class="option">
+                    <i class="fas fa-home" title="Inicio"></i>
+                    <h4>Inicio</h4>
+                </div>
+            </a>
+
+            <a href="#menú" class="selected">
+                <div class="option">
+                    <i class="fa fa-square-pen" title="Menú"></i>
+                    <h4>Menú</h4>
+                </div>
+            </a>
+            <a href="#openModal">
+            </a>
+        </div>
+
+    </div>
+    <section id="Inicio" >
+    </section>
+
+    <main>
+        <!--modal de ordenes-->
+        <div id="openModal" class="modalDialog">
+            <div>
+                <a href="#close" title="Close" class="close">X</a>
+                <h2>Su Pedido:</h2>
+                <div class="mostrar">
+                    <!-- <div class="item">
+                        <img src="" alt="">
+                        <div class="item-content">
+                            <h5>name of product</h5>
+                            <p>description of product</p>
+                            <h5 class="cart-price">45.50$</h5>
+                            <h6>Amount: 3</h6>
+                        </div>
+                        <span>Quitar</span>
+                    </div>-->
+                </div>
+                <h2>Total:<strong>$</strong><strong class="total-price">0.00</strong></h2>
+                <div class="limpiador">
+                    <a class="limpiar">Vaciar Pedidos</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!--contenido del menú de comidas-->
+        <section id="menú">
+            <div class="title-cards">
+                <h2>MENÚ</h2>
+                <div class="head2">
+                    <div class="btn-sect">
+                        <!--esta sección llevará especificamente al comensal a las 
+                    secciones de comida que busca-->
+                    </div>
+                    <div class="line"></div>
+                    <div class="line2"></div>
+
+                </div>
+            </div>
+            <div class="container-card">
+                {% for plato in platos %}
+                    <!-- Card con producto -->
+                    <div class="card" id="product_content">
+                        <div class="contenido-card">
+                            <div>
+                                <img src="{{ plato.imagen.url }}" alt="{{ plato.nombre }}">
+                            </div>
+                            <div class="precio-plato-carta">
+                                <strong>$</strong><span>{{ plato.precio }}</span>
+                            </div>
+                            <p>{{ plato.descripcion }}</p>
+                            <!-- Botón de ordenar -->
+                            <a href="#" class="btn-ordenar-content" data-id="1" id="ordenar">Order Now!</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+        </section>
+        <!--contenedor de logos de las tecnologías utilizadas en esta página-->
+    </main>
+
+    <section id="contacto">
+        <div class="fila">
+            <div class="col">
+                <h1>Luna Di Cagna</h1>
+            </div>
+            <div class="col">
+                <h3>Menu</h3>
+                <a href="#">Inicio</a>
+                <a href="#">Sabores</a>
+                <a href="#">Comidas</a>
+                <a href="#">Sobre Nosotros</a>
+            </div>
+            <div class="col">
+                <h3>Cheffs</h3>
+                <a href="#">Elsim palo</a>
+                <a href="#">Esteban dido</a>
+                <a href="#">Elver galarga</a>
+            </div>
+            <div class="col">
+                <h3>Social Media</h3>
+                <div class="media">
+                    <i class="fa-brands fa-instagram"></i>
+                    <a href="#">Instagram</a>
+                </div>
+                <div class="media">
+                    <i class="fa-brands fa-twitter"></i>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+            <div class="col">
+                <h3>Contacto</h3>
+                <input type="email" placeholder="Tu Correo">
+                <input type="submit" class="Enviar">
+            </div>
+        </div>
+    </section>
+    <!--script de la página-->
+    <script src="/js/parallax-effect.min.js"></script><!-- ALWAYS LOAD THIS LIBRARY AT THE END OF THE HTML DOCUMENT -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="app/app.js"></script>
+
+    <script>
+        //menú lateral, completamente responsive:
+
+//Ejecutar función en el evento click
+document.getElementById("btn_open").addEventListener("click", open_close_menu);
+
+//Declaramos variables
+var side_menu = document.getElementById("menu_side");
+var btn_open = document.getElementById("btn_open");
+var body = document.getElementById("body");
+
+//Evento para mostrar y ocultar menú
+function open_close_menu() {
+    body.classList.toggle("body_move");
+    side_menu.classList.toggle("menu__side_move");
+}
+
+//Si el ancho de la página es menor a 760px, ocultará el menú al recargar la página
+
+if (window.innerWidth < 760) {
+
+    body.classList.add("body_move");
+    side_menu.classList.add("menu__side_move");
+}
+
+//Haciendo el menú responsive(adaptable)
+
+window.addEventListener("resize", function () {
+
+    if (window.innerWidth > 760) {
+        body.classList.remove("body_move");
+        side_menu.classList.remove("menu__side_move");
+    }
+    if (window.innerWidth < 760) {
+
+        body.classList.add("body_move");
+        side_menu.classList.add("menu__side_move");
+    }
+});
+//Elemento seleccionado con la clase active en el sidebar
+
+$(function() {
+  
+    // elementos de la lista
+    var sideSelect = $(".menu__side div a"); 
+  
+    // manejador de click sobre todos los elementos
+    sideSelect.click(function() {
+       // eliminamos active de todos los elementos
+       sideSelect.removeClass("selected");
+       // activamos el elemento clicado.
+       $(this).addClass("selected");
+    });
+  
+  });
+
+//sección para funcionamiento del carrousel de imágenes
+var int;
+function setInt() {
+    clearInterval(int);
+    int = setInterval(function() {
+        var btns = document.getElementsByName("carousel");
+        for(var i = 0; i < btns.length; i++) {
+            if(btns[i].checked) {
+                btns[i].checked = false;
+                if(i + 1 == btns.length) {
+                    btns[0].checked = true;
+                }
+                else {
+                    btns[i + 1].checked = true;
+                }
+                return;
+            }
+        }
+    }, 5000); // 5000 milliseconds
+}
+setInt();
+
+//evento al hace clic sobre el bontón ordenar ahora (Order Now!)
+let allContainerOrden = document.querySelector('.container-card');
+let containerOrden = document.querySelector('.mostrar');
+let priceTotal = document.querySelector('.total-price');
+let vaciarCarritoBtn = document.querySelector('.limpiar');
+
+let OderThings = [];
+
+let totalPrice = 0;
+
+//funciones a través de eventos escuchados
+loadEventListeners();
+
+function loadEventListeners() {
+    allContainerOrden.addEventListener('click', addProductsToOrder);
+    //elimina productos del carrito
+    containerOrden.addEventListener('click', deleteProduct);
+    //vaciar carrito de compras
+    vaciarCarritoBtn.addEventListener('click', vaciarcarrito);
+}
+
+//elimina productos del carrito
+function deleteProduct(e) {
+    if (e.target.classList.contains('delete-product')) {
+        const deleteId = e.target.getAttribute('data-id');
+
+        OderThings.forEach(value => {
+            if (value.id === deleteId) {
+                let priceReduce = parseFloat(value.price) * parseFloat(value.amount);
+                totalPrice = totalPrice - priceReduce;
+                totalPrice = totalPrice.toFixed(2);
+            }
+        });
+
+        //elimina del arreglo de OderThings por el data-id
+        OderThings = OderThings.filter(product => product.id !== deleteId);
+    }
+    loadHTML(); //iterar sobre el carrito y mostrar su html
+}
+//imprime lo que hemos seleccionado del contenedor principal de las cards
+function addProductsToOrder(e) {
+    e.preventDefault();
+    if (e.target.classList.contains('btn-ordenar-content')) {
+        const selectProduct = e.target.parentElement;
+        readTheContent(selectProduct);
+        //console.log(e.target.parentElement);
+    }
+}
+
+//lee el contenido del producto
+function readTheContent(product) {
+    const infoProduct = {
+        image: product.querySelector('div img').src,
+        title: product.querySelector('.contenido-card h3').textContent,
+        price: product.querySelector('.precio-plato-carta span').textContent,
+        description: product.querySelector('.contenido-card p').textContent,
+        id: product.querySelector('a').getAttribute('data-id'),
+        amount: 1
+    }
+    totalPrice = parseFloat(totalPrice) + parseFloat(infoProduct.price);
+    totalPrice = totalPrice.toFixed(2);
+
+    //revisa si un elemento ya existe en el carrito
+    const exist = OderThings.some(product => product.id === infoProduct.id);
+
+    if (exist) {   //actualizamos la cantidad
+        const prod = OderThings.map(product => {
+            if (product.id === infoProduct.id) {
+                product.amount++;
+                return product; //retorna el objeto actualizado
+            } else {
+                return product; //retorna los objetos que no son los duplicados
+            }
+        }); //creamos un nuevo arreglo
+        OderThings = [...prod];
+    } else {
+        OderThings = [...OderThings, infoProduct];
+    }
+    loadHTML();
+}
+
+function loadHTML() {
+    cleanHTML();
+    OderThings.forEach(product => {
+        const { image, title, price, description, amount, id } = product;
+        const row = document.createElement('div');
+        row.classList.add('item');
+        row.innerHTML = `
+        <img src="${image}" alt="">
+        <div class="item-content">
+            <h5>${title}</h5>
+            <p>${description}</p>
+            <h5 class="order-price">$ ${price}</h5>
+            <h6>cantidad: ${amount}</h6>
+        </div>
+        <span  class="delete-product" data-id="${id}">Quitar</span>
+            `;
+
+        containerOrden.appendChild(row);
+        priceTotal.innerHTML = totalPrice;
+    });
+}
+
+function cleanHTML() {
+    containerOrden.innerHTML = ''
+    }
+
+
+//vaciar carrito de compras
+function vaciarcarrito() {
+    OderThings = []; //reseteamos el arreglo
+    cleanHTML(); //eliminamos todo el html
+    totalPrice = 0;
+    priceTotal.innerHTML = totalPrice;
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - LuogodiPrenotazione</title>
+    <link rel="icon" href="https://i.ibb.co/92km975/LOGO.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300;400;500;700&display=swap');
+
+        html, body {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'QuickSand';
+        background-image: url(https://i.ibb.co/sCPGJC2/fondologin.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat; 
+        }
+
+        .content {
+        flex: 1;  /* Esto hace que el contenido principal ocupe el espacio restante */
+        padding: 20px;
+        }
+        
+        #inicio {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        }
+
+        .logo h1{
+            font-family: "Dancing Script";
+            font-size: 50px;
+        }
+
+#inicio header {
+    background: linear-gradient(to right, #009246 33.33%, #ffffff 33.33% 66.66%, #d52b1e 66.66%);
+    width: 100%;
+    padding: 0;
+    z-index: 1000; /* Asegurar que el header esté por encima */
+    position: relative; /* Asegura que el z-index funcione */
+}
+
+#inicio header .contenido-header {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative;
+}
+
+/* Remover la posición absoluta y centrar el menú con Flexbox */
+#inicio header .contenido-header nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center; /* Centrar el menú */
+}
+
+#inicio header .contenido-header nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#inicio header .contenido-header nav ul li {
+    text-align: center;
+    margin: 0 20px; /* Añadir espacio entre los elementos del menú */
+}
+
+#inicio header .contenido-header nav ul li a {
+    display: inline-block;
+    text-decoration: none;
+    color: #CD212A;
+}
+
+#inicio header .contenido-header button {
+        margin-left: auto;
+    }
+
+    #inicio header .contenido-header button {
+        display: inline-block;
+        background-color: #008C45;
+        text-decoration: none;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 30px;
+        margin: 10px;
+    }
+
+.nav-responsive {
+    font-size: 25px;
+    color: #000;
+    display: none; /* Oculto por defecto */
+    cursor: pointer;
+}
+
+/* Media query para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    #inicio header .contenido-header nav {
+        display: none;
+    }
+
+    .nav-responsive {
+        display: block;
+    }
+
+    #inicio header .contenido-header nav.active {
+        display: block;
+        position: absolute;
+        top: 100px;
+        left: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 1);
+        padding: 20px;
+        z-index: 1001;
+    }
+
+    #inicio header .contenido-header nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #inicio header .contenido-header nav ul li {
+        margin-bottom: 10px;
+    }
+
+    /* Asegúrate de que el botón de cerrar sesión esté visible en el menú desplegable */
+    #inicio header .contenido-header nav ul li a {
+        color: #CD212A;
+        font-size: 20px;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    /* Específicamente para el botón de cerrar sesión */
+    #inicio header .contenido-header nav ul li.logout {
+        display: block; /* Asegúrate de que el botón de cerrar sesión esté visible */
+    }
+    }
+
+
+button, .btn {
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none; /* Asegura que no tengan subrayado */
+    border: none; /* Sin borde por defecto */
+}
+
+/* Botón Agregar */
+.Agregar {
+    background-color: #28a745; /* Verde fresco y moderno */
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.Agregar:hover {
+    background-color: #006F36; /* Verde más oscuro en hover */
+    color: #f1f1f1;
+}
+
+/* Botón Editar */
+.btn-info {
+    background-color: #00A6ED; /* Azul */
+    color: #fff;
+}
+
+.btn-info:hover {
+    background-color: #007BB5; /* Azul más oscuro en hover */
+    color: #f1f1f1;
+}
+
+/* Botón Borrar */
+.btn-danger {
+    background-color: #E74C3C; /* Rojo */
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #C0392B; /* Rojo más oscuro en hover */
+    color: #f1f1f1;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    button, .btn {
+        width: 100%; /* Los botones ocupan todo el ancho en pantallas pequeñas */
+        margin-bottom: 10px; /* Añade espacio entre botones */
+    }
+}
+
+        details {
+            margin: 10px;
+            font-family: Arial, sans-serif;
+        }
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            list-style: none;
+        }
+
+        summary::-webkit-details-marker {
+            display: none; 
+        }
+        
+                
+        .form {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    overflow: hidden;
+    background-color: #fff;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; /* Ancho máximo para no estirarse demasiado en pantallas grandes */
+}
+
+.form-header {
+    background-color: #008C45;
+    color: white;
+    padding: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.form-body {
+    padding: 20px;
+}
+
+.form-title {
+    font-size: 1.75em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto; /* Hace que la tabla pueda desplazarse horizontalmente */
+    -webkit-overflow-scrolling: touch; /* Para scroll suave en dispositivos móviles */
+    margin-bottom: 15px; /* Espacio inferior para mejor separación */
+}
+
+/* Tabla con estilos base */
+.table {
+    width: 100%;
+    border-collapse: collapse; /* Unifica bordes de las celdas */
+    border-spacing: 0; /* Elimina el espacio entre celdas */
+}
+
+.table th, .table td {
+    padding: 12px 15px; /* Espaciado interno */
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Línea divisoria entre filas */
+    white-space: nowrap; /* Evita que el contenido se ajuste en múltiples líneas */
+}
+
+/* Estilos alternos para filas */
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table th {
+    background-color: green; 
+    color: white; 
+    font-weight: bold;
+}
+
+    .table tbody tr:nth-child(even) {
+        background-color: #fff; 
+    }
+
+    .table tbody tr:hover {
+        background-color: #fff; 
+    }
+
+.table td img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .form {
+        margin: 10px;
+        width: 100%;
+    }
+    
+    .btn {
+        font-size: 14px;
+        padding: 4px 10px;
+    }
+
+    .table th, .table td {
+        font-size: 0.875em;
+        padding: 8px;
+    }
+    
+    .form-header {
+        font-size: 1.2em; /* Reducir el tamaño del texto en móviles */
+        padding: 10px;
+    }
+
+    .form-title {
+        font-size: 1.5em; /* Ajustar tamaño del título en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .table-responsive {
+        width: 100%; /* Asegura que el contenedor ocupe todo el ancho de la pantalla */
+        overflow-x: auto; /* Habilita el desplazamiento horizontal si es necesario */
+    }
+
+    .table {
+        width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+        font-size: 0.75em; /* Ajusta el tamaño de la fuente */
+        min-width: 300px; /* Agrega un ancho mínimo para evitar colapso */
+    }
+
+    .table th, .table td {
+        word-wrap: break-word; /* Permite que el contenido largo se ajuste en múltiples líneas */
+        padding: 5px; /* Reduce el padding para pantallas más pequeñas */
+    }
+}
+
+    footer{
+    background-color: #008C45;
+    padding: 50px 0;
+    font-size: 12px;
+    text-align: center;
+    padding: 15px 0;
+    width: 100%;
+    margin-top: auto;
+    }
+
+    footer .fila{
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    }
+
+    footer a{
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    margin-bottom: 3px;
+    }
+
+    footer a:hover{
+    text-decoration: underline;
+    }
+
+    footer h3{
+    margin-bottom: 12px;
+    }
+
+    footer .media{
+    display: flex;
+    align-items: center;
+    }
+
+    footer .media i{
+    display: block;
+    margin-right: 10px;
+    }
+
+    footer input{
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 30px;
+    }
+
+    footer .Enviar{
+    background-color: #009246;
+    color: #fff;
+    margin-top: 15px;
+    cursor: pointer;
+    }
+
+    /*RESPONSIVE*/
+
+    @media screen and (max-width:1070px){
+    #inicio header .contenido-header .social{
+        display: none;
+    }
+
+    #inico header .contenido-header nav{
+        position: static;
+        transform: translate(0);
+    }
+}
+
+    @media screen and (max-width:700px){
+    #inicio .contenido-header nav{
+        position: initial;
+        display: none;
+        transform: translate(0);
+    }
+    .nav-responsive{
+        display: block;
+    }
+    #inicio header .contenido-header{
+        padding: 20px;
+    }
+
+    nav.responsive ul{
+        display: block !important;
+    }
+    nav.responsive ul li{
+        border-bottom: 1px solid #ffffff;
+        padding: 10px 0;
+    }
+    footer .fila{
+        display: block;
+        text-align: center;
+    }
+    footer .fila h3{
+        margin: 20px 0 3px 0;
+    }
+    footer .fila .media{
+        display: block;
+    }
+    footer .fila input{
+        width: 90%;
+    }
+}
+    </style>
+</head>
+<body>
+    <section id="inicio">
+        <!-- ENCABEZADO -->
+        <header>
+            <div class="contenido-header">
+                <div class="logo">
+                    <h1>Luogo Di Prenotazione</h1>
+                </div>
+                <nav id="nav" class="responsive">
+                    <ul id="nav-links">
+                        <li>
+                            <a href="{% url 'Inicio' %}" onclick="seleccionar()">
+                                <i class="fa-solid fa-house"></i>
+                                <span>INICIO</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'Menu' %}" onclick="seleccionar()">
+                                <i class="fa-sharp fa-solid fa-utensils"></i>
+                                <span>COMIDAS</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'Reserva' %}">
+                                <i class="fa-solid fa-calendar"></i>
+                                <span>RESERVAS</span>
+                            </a>
+                        </li>
+                        <li>
+                                <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit">
+                                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
+                                    </button>
+                                </form>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Botón de menú hamburguesa -->
+                <div class="nav-responsive" id="bar" onclick="mostrarOcultar()"> 
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </header>
+
+    <div class="form">
+      <div class="form-header">Tus Reservas</div>
+      <div class="form-body">
+          <div
+              class="table-responsive"
+          >
+              <table
+                  class="table table-primary"
+              >
+                  <thead>
+                      <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">NOMBRE</th>
+                          <th scope="col">TELEFONO</th>
+                          <th scope="col">CORREO</th>
+                          <th scope="col">FECHA</th>
+                          <th scope="col">HORA</th>
+                          <th scope="col">PERSONAS</th>
+                          <th scope="col">ACCIONES</th>
+                          
+                      </tr>
+                  </thead>
+                  {% for Reserva in reservas %}
+                  <tbody>
+                      <tr class="">
+                          <td scope="row">{{ Reserva.id_reserva }}</td>
+                          <td>{{ Reserva.clienta }}</td>
+                          <td>{{ Reserva.telefono_cliente }}</td>
+                          <td>{{ Reserva.correo_cliente }}</td>
+                          <td>{{ Reserva.fecha }}</td>
+                          <td>{{ Reserva.hora }}</td>
+                          <td>{{ Reserva.numero_personas }}</td>
+                          <td>
+                              <a name="" id="" class="btn btn-info" href="{% url 'editarreserva' Reserva.id_reserva %}" role="button">Editar</a>
+                              <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_reserva' Reserva.id_reserva %}" role="button" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Borrar</a>
+                          </td>
+                      </tr>
+                  </tbody>
+                  {% endfor %}
+              </table>
+          </div>
+          
+      </div>
+  </div>
+  
+<!-- Footer -->
+<footer class="footer">
+  <div class="fila">
+      <div class="col">
+          <h1>Luogo di Prenotazione</h1>
+      </div>
+      <div class="col">
+          <h3>Social Media</h3>
+          <div class="media">
+              <i class="fa-brands fa-instagram"></i>
+              <a href="#">Instagram</a>
+          </div>
+          <div class="media">
+              <i class="fa-brands fa-twitter"></i>
+              <a href="#">Twitter</a>
+          </div>
+      </div>
+      <div class="col">
+          <h3>Contacto</h3>
+          <input type="email" placeholder="Tu Correo">
+          <input type="submit" class="Enviar">
+      </div>
+  </div>
+</footer>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    
+    <script>
+        function mostrarOcultar() {
+    const nav = document.getElementById("nav");
+    const bar = document.getElementById("bar");
+    nav.classList.toggle("active");
+    
+    // Cambia el ícono de hamburguesa al ícono de cerrar cuando se despliega el menú
+    if (nav.classList.contains("active")) {
+        bar.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    } else {
+        bar.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    }
+}
+    </script>
+</body>
+</html>

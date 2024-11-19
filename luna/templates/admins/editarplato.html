@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Producto</title>
+    <link rel="icon" href="https://i.imgur.com/vwDiFLS.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url(https://i.ibb.co/sCPGJC2/fondologin.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        input, textarea, select {
+            border-radius: 20px;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: white;
+            border: 1px solid white;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .contenedor {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 25px;
+            background-image: url(https://img.freepik.com/vector-gratis/ilustracion-bandera-italia_53876-27098.jpg);
+            background-size: 700px 1000px;
+            background-repeat: no-repeat;
+            width: 700px;
+            height: auto;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 25px;
+            margin-bottom: 30px;
+            color: black;
+            text-align: center;
+            font-family: "Dancing Script";
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-size: 18px;
+            color: black;
+            font-family: Arial, Helvetica, sans-serif;
+            display: block;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #78B7D0;
+        }
+
+        a {
+            display: flex;
+            justify-content: center;
+        }
+
+        form button[type="submit"],
+        form button[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+  
+        form button[type="submit"]:hover,
+        form button[type="button"]:hover {
+            background-color: #45a049;
+            border: 2px solid red;
+        }
+
+        @media (max-width: 1200px) {
+            .contenedor {
+                padding: 30px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            label {
+                font-size: 16px;
+            }
+
+            button {
+                padding: 12px 18px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contenedor {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            label {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contenedor {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            label {
+                font-size: 12px;
+            }
+
+            button {
+                padding: 8px 14px;
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h2>Editar Plato</h2>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Guardar Cambios</button>
+            <br><br>
+            <a href="{% url 'Plato' %}">Volver</a>
+        </form>
+    </div>
+</body>
+</html>

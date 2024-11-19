@@ -1,0 +1,948 @@
+<!DOCTYPE html5>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuogodiPrenotazione</title>
+    <link rel="icon" href="https://i.ibb.co/92km975/LOGO.png">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300;400;500;700&display=swap');
+    
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'QuickSand';
+            text-decoration: none;
+        }
+        html{
+            scroll-behavior: smooth;
+        }
+    
+        #inicio {
+                    height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+    
+        .logo h1{
+            font-family: "Dancing Script";
+            font-size: 50px;
+        }
+    
+    
+        #inicio header {
+            background: linear-gradient(to right, #009246 33.33%, #ffffff 33.33% 66.66%, #d52b1e 66.66%);
+            width: 100%;
+            padding: 0;
+            z-index: 1000; /* Asegurar que el header esté por encima */
+            position: relative; /* Asegura que el z-index funcione */
+        }
+    
+        #inicio header .contenido-header {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+    
+        /* Remover la posición absoluta y centrar el menú con Flexbox */
+        #inicio header .contenido-header nav {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center; /* Centrar el menú */
+        }
+    
+        #inicio header .contenido-header nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+    
+        #inicio header .contenido-header nav ul li {
+            text-align: center;
+            margin: 0 20px; /* Añadir espacio entre los elementos del menú */
+        }
+    
+        #inicio header .contenido-header nav ul li a {
+            display: inline-block;
+            text-decoration: none;
+            color: #000;
+        }
+    
+        #inicio header .contenido-header button {
+            margin-left: auto;
+        }
+    
+        #inicio header .contenido-header button {
+            display: inline-block;
+            background-color: #008C45;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin: 10px;
+        }
+    
+        .nav-responsive {
+            font-size: 25px;
+            color: #000;
+            display: none; /* Oculto por defecto */
+            cursor: pointer;
+        }
+    
+    
+        /* Media query para pantallas pequeñas */
+        @media screen and (max-width: 768px) {
+        #inicio header .contenido-header nav {
+            display: none;
+        }
+    
+        .nav-responsive {
+            display: block;
+        }
+    
+        #inicio header .contenido-header nav.active {
+            display: block;
+            position: absolute;
+            top: 100px;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 1);
+            padding: 20px;
+            z-index: 1001;
+        }
+    
+        #inicio header .contenido-header nav ul {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        #inicio header .contenido-header nav ul li {
+            margin-bottom: 10px;
+        }
+    
+        /* Asegúrate de que el botón de cerrar sesión esté visible en el menú desplegable */
+        #inicio header .contenido-header nav ul li a {
+            color: #CD212A;
+            font-size: 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    
+        /* Específicamente para el botón de cerrar sesión */
+        #inicio header .contenido-header nav ul li.logout {
+            display: block; /* Asegúrate de que el botón de cerrar sesión esté visible */
+        }
+        }
+        /*CARRUSEL*/
+    
+        inicio .carrusel {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            padding-top: 100px; /* Espacio para que el slider no quede debajo del header */
+        }
+    
+        #inicio .carrusel .info{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+        }
+    
+        #inicio .carrusel .info h2{
+            font-size: 50px;
+            margin-bottom: 20px;
+            font-family: 'Dancing Script';
+        }
+    
+        #inicio .carrusel .info button{
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 20px;
+            border: none;
+            background-color: #008C45;
+            color: #fff;
+            padding: 7px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+    
+        #inicio .gallery {
+            width: 100%;
+            height: 100%;
+        }
+    
+        #inicio .gallery-cell {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    
+        #inicio .gallery-cell img {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: relative;
+            z-index: 0;
+            opacity: 0.7;
+        }
+    
+        #inicio .gallery-cell::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); 
+            z-index: 1; 
+        }
+    
+    /*VARIEDAD*/
+    
+    #variedad{
+        padding: 50px 0;
+    }
+    
+    #variedad h2{
+        text-align: center;
+        font-weight: bold;
+        font-size: 70px;
+        font-family: "Dancing Script";
+    }
+    
+    .item .icono{
+        width: 40px;
+        height: 40px;
+        overflow: none;
+    }
+    
+    .info h3{
+        font-family: "Dancing Script";
+        font-size: 30px;
+        margin: 10px;
+    }
+    
+    #variedad .fila{
+        display: flex;
+        max-width: 1100px;
+        margin: auto;
+    }
+    
+    #variedad .fila .item img{
+        max-width: 80px;
+        
+    }
+    
+    #variedad .fila .item {
+        display: flex;
+        align-items: center;
+        margin: 20px 10px;
+        padding: 5px;
+    }
+    
+    #variedad .fila .item:hover{
+        background-color: #CD212A;
+    }
+    
+    #variedad .fila .item info{
+        margin-left: 15px;
+        font-size: 14px;
+    }
+    
+    #variedad button{
+        display: block;
+        width: fit-content;
+        margin: auto;
+        font-size: 20px;
+        border: none;
+        background-color: #CD212A;
+        color: #fff;
+        padding: 7px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+    }
+    
+    /*Seccion Restaurantes*/
+    
+    #restaurantes h2{
+        text-align: center;
+        font-weight: bold;
+        font-size: 30px;
+        margin-bottom: 30px;
+        font-family: "Dancing Script";
+        font-size: 50px;
+    }
+    
+    #restaurantes .fila{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    
+    #restaurantes .fila .item{
+        flex-basis: 30%; 
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    #restaurantes .fila .item img{
+        width: 100%; 
+        height: auto;
+    }
+    
+    #restaurantes .fila .item p{
+        position: absolute;
+        width: 100%;
+        bottom: -100%;
+        padding: 10px;
+        background-color: #CD212A;
+        color: #fff;
+        transition: .5s;
+    }
+    
+    #restaurantes .fila .item:hover p{
+        bottom: 0;
+    }
+    
+    #restaurantes button{
+        display: block;
+        width: fit-content;
+        margin: 20px auto;
+        font-size: 20px;
+        border: none;
+        background-color: #CD212A;
+        color: #fff;
+        padding: 7px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-family: "Dancing Script";
+        margin-top: 20px;
+        padding: 10px 20px;
+    }
+    
+    #comidas .item a{
+        display: block;
+        width: fit-content;
+        margin: 20px auto;
+        margin-bottom: 20px auto;
+        bottom: auto;
+        font-size: 20px;
+        border: none;
+        background-color: #CD212A;
+        color: #fff;
+        padding: 17px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-family: "Dancing Script";
+    }
+    
+    @media (max-width: 768px) {
+        .fila {
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+        }
+    
+        .item {
+            flex-basis: 100%; 
+            margin-bottom: 20px;
+        }
+    
+        button {
+            width: 100%; 
+            padding: 15px;
+        }
+    }
+    
+    #restaurantes a{
+        text-decoration: none;
+    }
+    
+    .nombre{
+        display: block;
+        width: fit-content;
+        margin: 20px auto;
+        font-size: 20px;
+        border: none;
+        background-color: #CD212A;
+        color: #fff;
+        padding: 17px 25px;
+        border-radius: 30px;
+        font-family: "Dancing Script";
+    }
+    
+    /*Seccion comidas*/
+    
+    #comidas {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    #comidas h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        font-family: "Dancing Script";
+        font-size: 60px;
+    }
+    
+    .contenedor-platos {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1100px;
+        margin: auto;
+    }
+    
+    #comida .contenedor-platos .item {
+        background-color: #f4f4f4;
+        padding: 0;
+        margin: 0; 
+        width: 100%;
+        max-width: 300px; 
+        text-align: center;
+    }
+    
+    .item img {
+        max-width: 100%;
+        width: 100%;
+        height: 80%; 
+        border-radius: 0; 
+        object-fit: cover; 
+    }
+    
+    .descripcion {
+        display: block;
+        width: fit-content;
+        margin: 20px auto;
+        font-size: 20px;
+        border: none;
+        background-color: #CD212A;
+        color: #fff;
+        padding: 17px 25px;
+        border-radius: 30px;
+        font-family: "Dancing Script";
+    }
+    
+    /* Responsivo para pantallas medianas */
+    @media (max-width: 992px) {
+        .contenedor-platos {
+            grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas medianas */
+        }
+    }
+    
+    /* Responsivo para pantallas pequeñas */
+    @media (max-width: 768px) {
+        .contenedor-platos {
+            grid-template-columns: 1fr; /* 1 columna en pantallas pequeñas */
+        }
+    }
+    
+    button {
+        display: block;
+        width: fit-content;
+        margin: 20px auto;
+        bottom: auto;
+        font-size: 20px;
+        border: none;
+        background-color: #CD212A;
+        color: #fff;
+        padding: 17px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-family: "Dancing Script";
+    
+    }
+    
+    button:hover {
+        background-color: #008C45;
+    }
+    
+    /*Seccion Sobre Nosotros*/
+    
+    #sobre_nosotros{
+        padding: 50px 0;
+    }
+    
+    #sobre_nosotros{
+        text-align: center;
+        font-weight: bold;
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .gallery-sobre{
+        max-width: 800px;
+        margin: 50px auto;
+    }
+    .gallery-sobre .gallery-cell .item{
+        display: flex;
+        align-items: center;
+        margin: 0 80px;
+    }
+    
+    .gallery-sobre .gallery-cell img{
+        display: block;
+        width: 150px;
+        border-radius: 90%;
+        border: 2px solid #fff;
+        margin-right: 30px;
+    }
+    
+    .gallery-sobre .gallery-cell h3{
+        margin-bottom: 7px;
+    }
+    
+    .gallery-sobre .gallery-cell p{
+        color: #CD212A;
+        font-style: italic;
+        font-size: 10px;
+    }
+    
+    #sobre_nosotros button{
+        display: block;
+        width: fit-content;
+        margin: 20px auto;
+        font-size: 20px;
+        border: none;
+        background-color: #CD212A;
+        color: #fff;
+        padding: 7px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+    }
+    
+    /*Contactos*/
+    
+    #contacto{
+        background-color: #008C45;
+        padding: 50px 0;
+        font-size: 12px;
+    }
+    
+    #contacto .fila{
+        max-width: 1100px;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        color: #fff;
+    }
+    
+    #contacto a{
+        text-decoration: none;
+        color: #fff;
+        display: block;
+        margin-bottom: 3px;
+    }
+    
+    #contacto a:hover{
+        text-decoration: underline;
+    }
+    
+    #contacto h3{
+        margin-bottom: 12px;
+    }
+    #contacto .media{
+        display: flex;
+        align-items: center;
+    }
+    
+    #contacto .media i{
+        display: block;
+        margin-right: 10px;
+    }
+    
+    #contacto input{
+        border: none;
+        padding: 10px;
+        width: 100%;
+        border-radius: 30px;
+    }
+    
+    #contacto .Enviar{
+        background-color: #009246;
+        color: #fff;
+        margin-top: 15px;
+        cursor: pointer;
+    }
+    
+    /*RESPONSIVE*/
+    
+    @media screen and (max-width:1070px){
+        #inicio header .contenido-header .social button{
+            display: none;
+        }
+        #inicio header .contenido-header nav{
+            position: static;
+            transform: translate(0);
+        }
+    }
+    
+    @media screen and (max-width:700px){
+        #variedad .fila{
+            display: block;
+        }
+        #variedad .fila .item{
+            display: block;
+            width: 100%;
+        }
+        #comidas .fila{
+            display: block;
+        }
+        #comidas .fila .item{
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        #inicio .contenido-header nav{
+            position: initial;
+            display: none;
+            transform: translate(0);
+        }
+        .nav-responsive{
+            display: block;
+        }
+        #inicio header .contenido-header{
+            padding: 20px;
+        }
+    
+        nav.responsive ul{
+            display: block !important;
+        }
+        nav.responsive ul li{
+            border-bottom: 1px solid #ffffff;
+            padding: 10px 0;
+        }
+        #contacto .fila{
+            display: block;
+            text-align: center;
+        }
+        #contacto .fila h3{
+            margin: 20px 0 3px 0;
+        }
+        #contacto .fila .media{
+            display: block;
+        }
+        #contacto .fila input{
+            width: 90%;
+        }
+    
+     /* RESPONSIVE ADICIONAL */
+            @media (max-width: 992px) {
+            .contenedor-platos {
+            grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    /* Responsivo para pantallas pequeñas */
+            @media (max-width: 768px) {
+            .contenedor-platos {
+            grid-template-columns: 1fr; /* 1 columna máximo en pantallas pequeñas */
+        }
+        
+    }
+    }
+    </style>    
+</head>
+<body>
+    <!--Seccion del inicio-->
+    <!--Seccion del inicio-->
+    <section id="inicio">
+        <!-- ENCABEZADO -->
+        <header>
+            <div class="contenido-header">
+                <div class="logo">
+                    <h1>Luogo Di Prenotazione</h1>
+                </div>
+                <nav id="nav" class="responsive">
+                    <ul id="nav-links">
+                        <li>
+                            <a href="{% url 'Inicio' %}" onclick="seleccionar()">
+                                <i class="fa-solid fa-house"></i>
+                                <span>INICIO</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'Menu' %}" onclick="seleccionar()">
+                                <i class="fa-sharp fa-solid fa-utensils"></i>
+                                <span>COMIDAS</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'Reserva' %}">
+                                <i class="fa-solid fa-calendar"></i>
+                                <span>RESERVAS</span>
+                            </a>
+                        </li>
+                        <li>
+                                <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit">
+                                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
+                                    </button>
+                                </form>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Botón de menú hamburguesa -->
+                <div class="nav-responsive" id="bar" onclick="mostrarOcultar()"> 
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </header>
+
+        <!--CARRUSEL-->
+        <div class="carrusel">
+            <div class="gallery js-flickity" data-flickity-options='{"wrapAround":true, 
+            "pageDots":false, "autoPlay":true}'>
+                <div class="gallery-cel">
+                    <img src="https://i.ibb.co/7gng6Wq/comida-carrusel.jpg" width="1200" height="520">
+                </div>
+                <div class="gallery-cel">
+                    <img src="https://i.ibb.co/Wxk4BTY/comida-carrusel10.jpg" width="1200" height="520">
+                </div>
+                <div class="gallery-cel">
+                    <img src="https://i.ibb.co/frDtnDF/comida-carrusel5.jpg" width="1200" height="520">
+                </div>
+                <div class="gallery-cel">
+                    <img src="https://i.ibb.co/SwxkRLT/comida-carrusel4.jpg" width="1200" height="520">
+                </div>
+            </div>
+            <div class="info"><br><br><br>
+                <h2>Comidas Exquisitas para el paladar</h2>
+                <p>Lorem ipsum dolor sit ametue eum!</p>
+                <button>Leer Más</button>
+            </div>
+        </div>
+    </section>
+
+    <!--Seccion de la variedad-->
+    <section id="variedad">
+        <h2>VARIEDAD</h2>
+        <div class="fila">
+            <div class="item">
+                <div class="icono">
+                    <img src="https://i.ibb.co/mCdLnLN/pizza.png" alt="">
+                </div>
+                <div class="info">
+                    <h3>Pizza</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="https://i.ibb.co/4m1DjPz/lasana.png" alt="">
+                </div>
+                <div class="info">
+                    <h3>Lasaña</h3>
+                    <p>Lorem, ipsum dolor sit amet consectetur </p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="https://i.ibb.co/SVQs3rb/espaguetis-2.png" alt="">
+                </div>
+                <div class="info">
+                    <h3>Pastas</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur</p>
+                </div>
+            </div>
+        </div>
+        <div class="fila">
+            <div class="item">
+                <div class="icono">
+                    <img src="https://i.ibb.co/xzT3FKR/tiramisu.png" alt="">
+                </div>
+                <div class="info">
+                    <h3>tiramisu</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="https://i.ibb.co/KyH8PsF/sandwich.png" alt="">
+                </div>
+                <div class="info">
+                    <h3>Sandwiches</h3>
+                    <p>Lorem, ipsum dolor sit amet consectetur </p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="https://i.ibb.co/x5tvgfK/crepe.png" alt="">
+                </div>
+                <div class="info">
+                    <h3>crepes</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur</p>
+                </div>
+            </div>
+        </div>
+
+        <button>Ver Más</button>
+
+    </section>
+
+
+    <!--Seccion de los restaurantes-->
+    <section id="restaurantes">
+        <h2>Restaurantes</h2>
+        <div class="fila">
+            {% for restaurante in restaurantes %}
+            <div class="item">
+                <img src="{{ restaurante.logo_restaurante.url }}" alt="">
+                <a class="nombre">{{ restaurante.nombre_restaurante }}</a>
+                <a class="Dirección">{{ restaurante.numero_de_local }}</a>
+            </div>
+            {% endfor %}
+        </div>
+        <button>Ver Más</button>
+    </section>
+
+    <section id="comidas">
+        <h2>Comidas</h2>
+        <div class="contenedor-platos">
+            {% for plato in platos %}
+            <div class="item">
+                <img src="{{ plato.imagen.url }}" alt="{{ plato.nombre }}">
+                <a class="descripcion">{{ plato.descripcion }}</a>
+                <a href="{% url 'Reservas' plato_id=plato.Id_plato %}">Reservar</a>
+            </div>
+            {% endfor %}
+        </div>
+        <button>Ver Más</button>
+    </section>
+
+    <!--Sobre nosotros-->
+    <section id="sobre_nosotros">
+        <h2>Sobre Nosotros</h2>
+        <!-- Carrusel Sobre nosotros-->
+        <div class="gallery-sobre js-flickity" data-flickity-options='{"wrapAround":true, 
+            "pageDots":true}'>
+                <div class="gallery-cell">
+                    <div class="item">
+                        <div class="foto">
+                            <img src="https://i.ibb.co/JcNPKww/elvis.jpg">
+                        </div>
+                        <div class="info">
+                            <h3>Gerente</h3>
+                            <p>Lorem, ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt quidem, quam minus</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-cell">
+                    <div class="item">
+                        <div class="foto">
+                            <img src="https://i.ibb.co/4S8Rs0r/shisui.jpg">
+                        </div>
+                        <div class="info">
+                            <h3>Mesero</h3>
+                            <p>Lorem, ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt quidem, quam minus</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-cell">
+                    <div class="item">
+                        <div class="foto">
+                            <img src="https://i.ibb.co/dKvKkvZ/garou.jpg">
+                        </div>
+                        <div class="info">
+                            <h3>Supervisor</h3>
+                            <p>Lorem, ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt quidem, quam minus</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-cell">
+                    <div class="item">
+                        <div class="foto">
+                            <img src="https://i.ibb.co/P4nyYZ0/goku.jpg">
+                        </div>
+                        <div class="info">
+                            <h3>Aseador</h3>
+                            <p>Lorem, ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt quidem, quam minus</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-cell">
+                    <div class="item">
+                        <div class="foto">
+                            <img src="https://i.ibb.co/cK9Brt7/jefe.jpg">
+                        </div>
+                        <div class="info">
+                            <h3>Cajero</h3>
+                            <p>Lorem, ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt quidem, quam minus</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-cell">
+                    <div class="item">
+                        <div class="foto">
+                            <img src="https://i.ibb.co/ySDCz1y/chef1.jpg">
+                        </div>
+                        <div class="info">
+                            <h3>Mesero</h3>
+                            <p>Lorem, ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt quidem, quam minus</p>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <button>Leer Más</button>
+    </section>
+
+
+<!-- Contacto -->
+<section id="contacto">
+    <div class="fila">
+        <div class="col">
+            <h1>Luna Di Cagna</h1>
+        </div>
+        <div class="col">
+            <h3>Social Media</h3>
+            <div class="media">
+                <i class="fa-brands fa-instagram"></i>
+                <a href="#">Instagram</a>
+            </div>
+            <div class="media">
+                <i class="fa-brands fa-twitter"></i>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="col">
+            <h3>Contacto</h3>
+            <input type="email" placeholder="Tu Correo">
+            <input type="submit" class="Enviar">
+        </div>
+    </div>
+</section>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+<script>
+    function mostrarOcultar() {
+    const nav = document.getElementById("nav");
+    const bar = document.getElementById("bar");
+    nav.classList.toggle("active");
+    
+    // Cambia el ícono de hamburguesa al ícono de cerrar cuando se despliega el menú
+    if (nav.classList.contains("active")) {
+        bar.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    } else {
+        bar.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    }
+}
+</script>
+</body>
+</html>

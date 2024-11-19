@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registro</title>
+    <link rel="icon" href="https://i.imgur.com/vwDiFLS.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url(https://i.ibb.co/sCPGJC2/fondologin.png);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #780000;
+      border-radius: 25px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    .contenedor {
+      width: 90%;
+      max-width: 500px;
+      margin: 0 auto;
+      background-image: url('https://img.freepik.com/fotos-premium/bandera-italiana_469558-2021.jpg');
+      background-repeat: no-repeat;
+      background-size: 600px 1000px;
+      background-position: center;
+      padding: 20px;
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .login h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: black;
+    }
+
+    .login img {
+      display: block;
+      margin: 0 auto 20px;
+      max-width: 200px;
+    }
+
+    .datos h4 {
+        margin-bottom: 5px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: 2px solid #780000;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+    button:hover{
+      background-color: #3e8e41;
+    }
+
+    button.submit{
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: 2px solid #780000;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+    button:hover{
+      background-color: #3e8e41;
+    }
+
+    /* Estilos personalizados para los radio buttons */
+    .tipo-cuenta {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .tipo-cuenta input[type="radio"] {
+        display: none;
+    }
+
+    .tipo-cuenta label {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: 2px solid #780000;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-size: 1.1rem;
+    }
+
+    .tipo-cuenta input[type="radio"]:checked + label {
+      background-color: rgb(0, 94, 0);
+      color: white;
+    }
+
+    .tipo-cuenta label:hover {
+      background-color: rgb(0, 190, 0);
+      color: white;
+    }
+</style>
+<body>
+    <div class="contenedor">
+        <div class="login">
+            <h1>Crear cuenta</h1>
+            <img src="https://i.ibb.co/92km975/LOGO.png" width="300" height="auto">
+            <form action="{% url 'Registro' %}" method="POST">
+                {% csrf_token %}
+                {% if error_message %}
+                <div class="error-message">{{ error_message }}</div>
+                {% endif %}
+                <div class="datos">
+                    <h4>Digite nombre de usuario</h4>
+                    {{ form.username }}
+                    <h4> Digite correo</h4>
+                    {{ form.email }}   
+                    <h4> Digite contraseña</h4>
+                    {{ form.password1 }}  
+                    <h4> Confirme contraseña</h4>
+                    {{ form.password2 }}   
+                    <h4> Elija un tipo de cuenta</h4>
+                    <div class="tipo-cuenta">
+                        <input type="radio" id="admin" name="user_type" value="Administrador" required {% if form.user_type.value == 'Administrador' %}checked{% endif %}>
+                        <label for="admin">Administrador</label><br>
+                        <input type="radio" id="cliente" name="user_type" value="Cliente" required {% if form.user_type.value == 'Cliente' %}checked{% endif %}>
+                        <label for="cliente">Cliente</label>
+                    </div>
+                    <button type="submit">Crear cuenta</button>
+                    <a href="{% url 'Login' %}" class="button-link">
+                      <button type="button">Volver</button>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const adminRadio = document.getElementById('admin');
+
+        form.addEventListener('submit', function(event) {
+            if (adminRadio.checked) {
+                sessionStorage.setItem('is_admin', true);
+            } else {
+                sessionStorage.removeItem('is_admin');
+            }
+        });
+    });
+</script>
+</html>
